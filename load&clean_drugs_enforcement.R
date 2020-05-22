@@ -32,10 +32,11 @@ data_drug_enf_NDC <- mutate(data_drug_enf, NDC = NDC_data)
 names(data_drug_enf_NDC)
 head(data_drug_enf_NDC$NDC)
 
-#transform NDC-column to just NDC
-data_drug_enf_NDC$NDC  %>% str_replace_all("t", "") %>% str_replace_all("\\\\", "") %>% str_replace_all("NDC", "") %>% str_replace_all(":", "") %>% 
+#transform NDC-column to just NDC + adding leading zeros to addapt to NADAC pattern
+data_drug_enf_NDC$NDC <- data_drug_enf_NDC$NDC  %>% str_replace_all("t", "") %>% str_replace_all("\\\\", "") %>% str_replace_all("NDC", "") %>% str_replace_all(":", "") %>% 
   str_replace_all('"', "") %>% str_replace_all("code","") %>% 
   str_replace_all("-","") %>% str_replace("#","") %>% 
-  str_trim()
+  str_trim() %>% str_pad(11, pad="0")
 
+head(data_drug_enf_NDC$NDC)
 
